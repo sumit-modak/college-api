@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const students = require('../models/students')
 
 router.get('/', (req, res) => {
   res.send("list users")
