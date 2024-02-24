@@ -19,16 +19,16 @@ function logger(req, res, next) {
 app.use(logger);
 // public is a static directory which means, the information
 // present in that directory can be accessed by any user
-app.use(express.static("public"))
+app.use(express.static("static"))
 
 app.get('/', (req, res) => {
-  res.send("not complete")
+  res.render("home.ejs")
 })
 
-const dbRouter = require('./routes/db')
-const studentRouter = require('./routes/students')
-app.use('/db', dbRouter)
-app.use('/students', studentRouter)
+const studentRouter = require('./routes/student')
+const teacherRouter = require('./routes/teacher')
+app.use('/student', studentRouter)
+app.use('/teacher', teacherRouter)
 
 app.listen(PORT,
   () => console.log(`it's alive on http://127.0.0.1:${PORT}`)

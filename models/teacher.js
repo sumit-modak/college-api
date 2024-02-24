@@ -6,14 +6,15 @@ const teacherSchema = new mongoose.Schema({
   title: { type: String, required: true },
   gender: { type: String, required: true },
   email: { type: String, required: true, unique: true },
+  phno: { type: Number, required: true, unique: true },
   dept: { type: String, required: true },
   dob: { type: Date, required: true },
   collegeId: { type: String, required: true, unique: true },
   joinDate: { type: Date, required: true, default: Date.now },
   leaveDate: { type: Date },
-  deskNo: { type: Int, unique: true },
-  isHOD: { type: Bool, required: true }
+  deskNo: { type: Number, unique: true },
+  isHOD: { type: Bool, required: true },
+  password: { type: String, required: true }
 })
 
-module.exports = mongoose.model('teachers', teacherSchema)
-
+module.exports = mongoose.model('Teachers', teacherSchema)

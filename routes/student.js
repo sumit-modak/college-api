@@ -1,6 +1,22 @@
 const express = require('express')
 const router = express.Router()
-const students = require('../models/students')
+const student = require('../models/student')
+
+router.route('/login')
+  .get((req, res) => {
+    res.render("student/login.ejs")
+  })
+  .post((req, res) => {
+    res.status(201).send("login successful")
+  })
+
+router.route('/signup')
+  .get((req, res) => {
+    res.render("student/signup.ejs")
+  })
+  .post((req, res) => {
+    res.status(201).send("signup successful")
+  })
 
 router.get('/', (req, res) => {
   res.send("list users")
