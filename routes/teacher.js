@@ -1,21 +1,41 @@
 const express = require('express')
 const router = express.Router()
 const teacher = require('../models/teacher')
-
-router.route('/login')
-  .get((req, res) => {
-    res.render("teacher/login.ejs")
-  })
-  .post((req, res) => {
-    res.status(201).send("login successful")
-  })
+const bcrypt = require('bcrypt')
 
 router.route('/signup')
   .get((req, res) => {
     res.render("teacher/signup.ejs")
   })
-  .post((req, res) => {
-    res.status(201).send("signup successful")
+  .post(async (req, res) => {
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      const user = { collegeId: req.body.collegeId, password: hashedPassword }
+      teacher.insertOne(user)
+      res.status(201).send("Sign In Successful")
+    } catch {
+      res.status(500).send()
+    }  
+  })
+
+router.route('/login')
+  .get((req, res) => {
+    res.render("teacher/login.ejs")
+  })
+  .post(async (req, res) => {
+    const user = teacher.find({collegeId: req.body.name})
+    if (user == null) {
+      return res.status(400).send('Cannot find user')
+    }
+    try {
+      if(await bcrypt.compare(req.body.password, user.password)) {
+        res.send('Login Successful')
+      } else {
+        res.send('Not Allowed')
+      }
+    } catch {
+      res.status(500).send()
+    }
   })
 
 router.get('/', (req, res) => {

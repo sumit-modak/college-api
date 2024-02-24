@@ -1,11 +1,10 @@
-require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = 8080;
 
 // establishing a connection between database and server
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+mongoose.connect("mongodb://127.0.0.1:27017/college/", { useNewUrlParser: true })
   .then(() => console.log("Connected to database"))
   .catch((err) => console.error(err))
 
