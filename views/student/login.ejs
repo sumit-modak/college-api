@@ -7,18 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <form class="form-signin" method="post" action="/login">
-        <ul class="dropdown-menu dropdown-menu-dark">
-            <li>Student</li>
-            <li>Teacher</li>
-        </ul>
+    <form class="form-signin" method="post" action="/student/login">
         <div class="form-floating">
-            <input type="text" class="form-control" id="name" name="username" placeholder="College ID">
-            <label for="name">College Id</label>
+            <input type="text" class="form-control" id="collegeId" name="collegeId" placeholder="College ID">
+            <label for="collegeId">College Id</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <label for="password">Password</label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
     </form>

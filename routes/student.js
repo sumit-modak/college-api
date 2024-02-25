@@ -1,20 +1,21 @@
 const express = require('express')
 const router = express.Router()
 const student = require('../models/student')
+const bcrypt = require('bcrypt')
 
 router.route('/signup')
-  .get((req, res) => {
+  .get(req, res) => {
     res.render("student/signup.ejs")
   })
   .post(async (req, res) => {
     try {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      const user = { collegeId: req.body.collegeId, password: hashedPassword }
-      student.insertOne(user)
-      res.status(201).send("Sign In Successful")
+      const hashedPassword = bcrypt.hash(req.body.password, 10);
+      const user = { collegeId: req.body.collegeId, password: hashedPassword };
+      student.insertMany([user]);
+      res.status(201).send("Sign In Successful");
     } catch {
-      res.status(500).send()
-    }  
+      res.status(500).send();
+    }
   })
 
 router.route('/login')
@@ -22,7 +23,8 @@ router.route('/login')
     res.render("student/login.ejs")
   })
   .post(async (req, res) => {
-    const user = student.find({collegeId: req.body.name})
+    // const user = student.find({collegeId: req.body.name})
+    const user = student.find(user => user.collegeId === req.body.collegeId)
     if (user == null) {
       return res.status(400).send('Cannot find user')
     }
@@ -74,11 +76,6 @@ router.delete('/delete', (req, res) => {
 //     "tshirt": `tshirt with your ${logo} and ID of ${id}`
 //   })
 //   res.render("index", { text: "world" })
-// })
-
-// res.status(200).send({
-//   "name": "hello",
-//   "title": "there"
 // })
 
 module.exports = router

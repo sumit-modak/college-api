@@ -11,7 +11,7 @@ router.route('/signup')
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
       const user = { collegeId: req.body.collegeId, password: hashedPassword }
-      teacher.insertOne(user)
+      teacher.insertMany([user])
       res.status(201).send("Sign In Successful")
     } catch {
       res.status(500).send()
@@ -75,11 +75,6 @@ router.delete('/delete', (req, res) => {
 //     "tshirt": `tshirt with your ${logo} and ID of ${id}`
 //   })
 //   res.render("index", { text: "world" })
-// })
-
-// res.status(200).send({
-//   "name": "hello",
-//   "title": "there"
 // })
 
 module.exports = router
